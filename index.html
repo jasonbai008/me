@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>白延云 - 个人简介</title>
+    <style>
+        /* 基础重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding-bottom: 30px;
+        }
+
+        /* 顶部背景与头像区域 */
+        .header {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            padding: 50px 20px 60px;
+            text-align: center;
+            color: white;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.8);
+            object-fit: cover;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 15px;
+        }
+
+        .name {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .title {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* 主体内容容器 */
+        .container {
+            margin: -30px 20px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* 卡片样式 */
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            color: #4a4a4a;
+        }
+
+        .card-title .icon {
+            margin-right: 8px;
+            font-size: 20px;
+        }
+
+        /* 基本信息网格 */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .info-item {
+            background: #f9fbff;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        .info-item .label {
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .info-item .value {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .info-item.full-width {
+            grid-column: span 2;
+        }
+
+        /* 工作经历时间轴 */
+        .timeline {
+            position: relative;
+            /* 将左侧内边距增加到28px，使其与“工作经历”文本左对齐 (图标20px + 间距8px) */
+            padding-left: 58px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            /* 调整连接线的左侧距离，以适配整体右移 */
+            left: 42px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e0e5ec;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            /* 重新计算圆点的位置，使其在线条中心 (-22px + 5px半径 = -17px, 28px - 17px = 11px) */
+            left: -22px;
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            /* 默认项颜色调整为灰色，以突出高亮项 */
+            background: #e0e5ec;
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px #e0e5ec;
+        }
+
+        /* 突出显示的高亮状态样式 */
+        .timeline-item.highlight::before {
+            background: #6e8efb;
+            box-shadow: 0 0 0 2px #6e8efb;
+        }
+
+        .company-name {
+            font-size: 15px;
+            font-weight: bold;
+            /* 默认项字体颜色稍微变浅 */
+            color: #666;
+        }
+
+        /* 突出显示的字体样式 */
+        .timeline-item.highlight .company-name {
+            color: #6e8efb;
+            font-size: 16px;
+        }
+
+        /* 个人爱好标签 */
+        .hobbies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .hobby-tag {
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            border: 1px solid #e0e0e0;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* 链接按钮 */
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .link-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f9fbff;
+            padding: 15px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .link-btn:active {
+            background: #eef2ff;
+        }
+
+        .link-btn .link-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .link-btn .arrow {
+            color: #a0a0a0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 顶部个人信息区域 -->
+    <header class="header">
+        <!-- 假照片替代 -->
+        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
+            alt="Avatar" class="avatar">
+        <h1 class="name">白延云</h1>
+        <p class="title">资深前端开发工程师 | Senior Web Developer</p>
+    </header>
+
+    <div class="container">
+        <!-- 基本信息模块 -->
+        <section class="card">
+            <h2 class="card-title"><span class="icon">📋</span>基本信息</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="label">出生年月</div>
+                    <div class="value">1989年2月</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">生肖</div>
+                    <div class="value">蛇 🐍</div>
+                </div>
+                <!-- 占位符信息，使相亲简介更丰满 -->
+                <div class="info-item">
+                    <div class="label">身高</div>
+                    <div class="value">165 cm</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">工作地</div>
+                    <div class="value">北京 · 朝阳区</div>
+                </div>
+                <div class="info-item full-width">
+                    <div class="label">毕业院校</div>
+                    <div class="value">辽宁大学 (211) - 应用物理学</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 工作经历模块 (仅保留公司名) -->
+        <section class="card">
+            <h2 class="card-title"><span class="icon">💼</span>工作经历</h2>
+            <div class="timeline">
+                <!-- 为最近的一份工作添加 highlight 类，突出显示 -->
+                <div class="timeline-item highlight">
+                    <div class="company-name">高等教育出版社</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="company-name">普华永道 (外企)</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="company-name">知迪汽车 (外企)</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="company-name">易车</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="company-name">京东</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="company-name">百利天下</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="company-name">理工雷科</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="company-name">睿芯联科</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 个人爱好模块 -->
+        <section class="card">
+            <h2 class="card-title"><span class="icon">🎨</span>个人爱好</h2>
+            <div class="hobbies">
+                <span class="hobby-tag">🏃‍♂️ 跑步健身</span>
+                <span class="hobby-tag">📚 阅读</span>
+                <span class="hobby-tag">💻 钻研新技术</span>
+                <span class="hobby-tag">✈️ 旅行探索</span>
+                <span class="hobby-tag">🎬 电影</span>
+            </div>
+        </section>
+
+        <!-- 我的主页模块 -->
+        <section class="card">
+            <h2 class="card-title"><span class="icon">🔗</span>我的主页</h2>
+            <div class="links">
+                <a href="https://jasonbai.dpdns.org" class="link-btn" target="_blank">
+                    <div class="link-left"><span>🏠</span>个人主页</div>
+                    <span class="arrow">➔</span>
+                </a>
+                <a href="https://blog.jasonbai.dpdns.org" class="link-btn" target="_blank">
+                    <div class="link-left"><span>📝</span>个人博客</div>
+                    <span class="arrow">➔</span>
+                </a>
+                <a href="https://projects.jasonbai.dpdns.org" class="link-btn" target="_blank">
+                    <div class="link-left"><span>✨</span>作品合集</div>
+                    <span class="arrow">➔</span>
+                </a>
+                <a href="https://github.com/jasonbai008" class="link-btn" target="_blank">
+                    <div class="link-left"><span>🐙</span>GitHub</div>
+                    <span class="arrow">➔</span>
+                </a>
+            </div>
+        </section>
+    </div>
+
+</body>
+
+</html>
