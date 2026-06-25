@@ -41,6 +41,30 @@
             object-fit: cover;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             margin-bottom: 15px;
+            /* 添加掉落动画效果 */
+            animation: dropIn 1s ease-out forwards;
+            position: relative;
+        }
+
+        /* 头像从上方掉落的动画 */
+        @keyframes dropIn {
+            0% {
+                transform: translateY(-200px);
+                opacity: 0;
+            }
+
+            60% {
+                transform: translateY(20px);
+            }
+
+            80% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .name {
@@ -116,8 +140,11 @@
         /* 工作经历时间轴 */
         .timeline {
             position: relative;
-            /* 将左侧内边距增加到28px，使其与“工作经历”文本左对齐 (图标20px + 间距8px) */
+            /* 左侧内边距保持，确保线条和内容比例 */
             padding-left: 58px;
+            /* 使时间轴容器宽度自适应内容并居中 */
+            width: fit-content;
+            margin: 0 auto;
         }
 
         .timeline::before {
@@ -176,21 +203,23 @@
 
         /* 个人爱好标签 */
         .hobbies {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 10px;
         }
 
         .hobby-tag {
             background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
             border: 1px solid #e0e0e0;
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 14px;
+            padding: 8px 5px;
+            border-radius: 12px;
+            font-size: 13px;
             color: #555;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 5px;
+            white-space: nowrap;
         }
 
         /* 链接按钮 */
@@ -233,9 +262,8 @@
 
     <!-- 顶部个人信息区域 -->
     <header class="header">
-        <!-- 假照片替代 -->
-        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
-            alt="Avatar" class="avatar">
+        <!-- 使用本地头像 -->
+        <img src="assets/avator.jpg" alt="Avatar" class="avatar">
         <h1 class="name">白延云</h1>
         <p class="title">资深前端开发工程师 | Senior Web Developer</p>
     </header>
@@ -306,10 +334,14 @@
             <h2 class="card-title"><span class="icon">🎨</span>个人爱好</h2>
             <div class="hobbies">
                 <span class="hobby-tag">🏃‍♂️ 跑步健身</span>
-                <span class="hobby-tag">📚 阅读</span>
-                <span class="hobby-tag">💻 钻研新技术</span>
+                <span class="hobby-tag">📚 深度阅读</span>
+                <span class="hobby-tag">💻 钻研技术</span>
                 <span class="hobby-tag">✈️ 旅行探索</span>
-                <span class="hobby-tag">🎬 电影</span>
+                <span class="hobby-tag">🎬 经典电影</span>
+                <span class="hobby-tag">🎸 弹吉他</span>
+                <span class="hobby-tag">🍳 烹饪美食</span>
+                <span class="hobby-tag">📸 摄影</span>
+                <span class="hobby-tag">🎾 网球</span>
             </div>
         </section>
 
